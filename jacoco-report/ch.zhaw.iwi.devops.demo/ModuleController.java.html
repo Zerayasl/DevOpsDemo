@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ModuleController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">ch.zhaw.iwi.devops.demo</a> &gt; <span class="el_source">ModuleController.java</span></div><h1>ModuleController.java</h1><pre class="source lang-java linenums">package ch.zhaw.iwi.devops.demo;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@CrossOrigin
+@RestController
+<span class="fc" id="L22">public class ModuleController {</span>
+
+<span class="fc" id="L24">    private Map&lt;Integer, Module&gt; modules = new HashMap&lt;Integer, Module&gt;();</span>
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void init() {
+<span class="fc" id="L28">        this.modules.put(1, new Module(1, &quot;DevOps&quot;, &quot;CI/CD und Deployment&quot;, &quot;Sommer 2023&quot;, &quot;3&quot;));</span>
+<span class="fc" id="L29">        this.modules.put(2, new Module(2, &quot;Software Engineering&quot;, &quot;Architektur und Clean Code&quot;, &quot;Sommer 2023&quot;, &quot;3&quot;));</span>
+<span class="fc" id="L30">        this.modules.put(3, new Module(3, &quot;Web Development&quot;, &quot;Frontend und Backend Entwicklung&quot;, &quot;Winter 2023&quot;, &quot;6&quot;));</span>
+
+<span class="fc" id="L32">        System.out.println(&quot;Init Module Data&quot;);</span>
+<span class="fc" id="L33">    }</span>
+
+    @GetMapping(&quot;/services/module&quot;)
+    public List&lt;PathListEntry&lt;Integer&gt;&gt; module() {
+<span class="nc" id="L37">        var result = new ArrayList&lt;PathListEntry&lt;Integer&gt;&gt;();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        for (var module : this.modules.values()) {</span>
+<span class="nc" id="L39">            var entry = new PathListEntry&lt;Integer&gt;();</span>
+<span class="nc" id="L40">            entry.setKey(module.getId(), &quot;moduleKey&quot;);</span>
+<span class="nc" id="L41">            entry.setName(module.getTitle());</span>
+<span class="nc" id="L42">            entry.getDetails().add(module.getDescription());</span>
+// added by Zerayasl
+<span class="nc" id="L44">            entry.getDetails().add(&quot;Semester: &quot; + module.getSemester());</span>
+<span class="nc" id="L45">            entry.getDetails().add(&quot;ECTS: &quot; + module.getEcts());</span>
+<span class="nc" id="L46">            entry.setTooltip(module.getDescription() + &quot; | &quot; + module.getSemester() + &quot; | &quot; + module.getEcts() + &quot; ECTS&quot;);</span>
+<span class="nc" id="L47">            result.add(entry);</span>
+<span class="nc" id="L48">        }</span>
+<span class="nc" id="L49">        return result.stream().sorted(Comparator.comparing(PathListEntry::getName)).toList();</span>
+    }
+
+// added by Zerayasl
+    @GetMapping(&quot;/services/module/count&quot;)
+    public int countModules() {
+<span class="nc" id="L55">        return this.modules.size();</span>
+    }
+
+// added by Zerayasl
+    @GetMapping(&quot;/services/module/semester/{semester}&quot;)
+    public List&lt;PathListEntry&lt;Integer&gt;&gt; getModulesBySemester(@PathVariable(&quot;semester&quot;) String semester) {
+<span class="nc" id="L61">        var result = new ArrayList&lt;PathListEntry&lt;Integer&gt;&gt;();</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        for (var module : this.modules.values()) {</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">            if (module.getSemester() != null &amp;&amp; module.getSemester().equalsIgnoreCase(semester)) {</span>
+<span class="nc" id="L65">                var entry = new PathListEntry&lt;Integer&gt;();</span>
+<span class="nc" id="L66">                entry.setKey(module.getId(), &quot;moduleKey&quot;);</span>
+<span class="nc" id="L67">                entry.setName(module.getTitle());</span>
+<span class="nc" id="L68">                entry.getDetails().add(module.getDescription());</span>
+<span class="nc" id="L69">                entry.getDetails().add(&quot;Semester: &quot; + module.getSemester());</span>
+<span class="nc" id="L70">                entry.getDetails().add(&quot;ECTS: &quot; + module.getEcts());</span>
+<span class="nc" id="L71">                entry.setTooltip(module.getDescription());</span>
+<span class="nc" id="L72">                result.add(entry);</span>
+            }
+<span class="nc" id="L74">        }</span>
+
+<span class="nc" id="L76">        return result.stream().sorted(Comparator.comparing(PathListEntry::getName)).toList();</span>
+    }
+
+    @GetMapping(&quot;/services/module/{key}&quot;)
+    public Module getModule(@PathVariable(&quot;key&quot;) Integer key) {
+<span class="nc" id="L81">        return this.modules.get(key);</span>
+    }
+
+    @PostMapping(&quot;/services/module&quot;)
+    public void createModule(@RequestBody Module module) {
+<span class="nc" id="L86">        var newId = this.modules.keySet().stream().max(Comparator.naturalOrder()).orElse(0) + 1;</span>
+<span class="nc" id="L87">        module.setId(newId);</span>
+<span class="nc" id="L88">        this.modules.put(newId, module);</span>
+<span class="nc" id="L89">    }</span>
+
+    @PutMapping(&quot;/services/module/{key}&quot;)
+    public void updateModule(@PathVariable(&quot;key&quot;) Integer key, @RequestBody Module module) {
+<span class="nc" id="L93">        module.setId(key);</span>
+<span class="nc" id="L94">        this.modules.put(key, module);</span>
+<span class="nc" id="L95">    }</span>
+
+    @DeleteMapping(&quot;/services/module/{key}&quot;)
+    public Module deleteModule(@PathVariable(&quot;key&quot;) Integer key) {
+<span class="nc" id="L99">        return this.modules.remove(key);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

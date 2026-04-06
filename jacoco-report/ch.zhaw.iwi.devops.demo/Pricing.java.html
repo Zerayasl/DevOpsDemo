@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pricing.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">ch.zhaw.iwi.devops.demo</a> &gt; <span class="el_source">Pricing.java</span></div><h1>Pricing.java</h1><pre class="source lang-java linenums">package ch.zhaw.iwi.devops.demo;
+
+//Ideen-Quelle: Alltagsbeispiel Parkgebuehren.
+//Requirements: Bis 30 Minuten gratis. Ab 31 Minuten kostet die erste angefangene Stunde 2.0 CHF. Negative Minuten sind ungueltig.
+//Komplexität: Grenzwerte, Preislogik und Fehlerfall.
+
+<span class="fc" id="L7">public class Pricing {</span>
+
+    private static final int FREE_MINUTES = 30;
+    private static final int FIRST_TIER_MAX = 120;
+    private static final double FREE_PRICE = 0.0;
+    private static final double FIRST_TIER_PRICE = 2.0;
+    private static final double SECOND_TIER_PRICE = 5.0;
+
+
+    public double calculateFee(int minutes) {
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        if (minutes &lt; 0) {</span>
+<span class="fc" id="L18">            throw new IllegalArgumentException(&quot;minutes must not be negative&quot;);</span>
+        }
+
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (minutes &lt;= FREE_MINUTES) {</span>
+<span class="fc" id="L22">            return FREE_PRICE;</span>
+        }
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (minutes &lt;= FIRST_TIER_MAX) {</span>
+<span class="fc" id="L25">            return FIRST_TIER_PRICE;</span>
+        }
+
+<span class="fc" id="L28">        return SECOND_TIER_PRICE;</span>
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

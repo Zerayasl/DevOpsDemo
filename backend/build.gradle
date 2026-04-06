@@ -30,12 +30,17 @@ tasks.named('test') {
 }
 
 test {
+	// von zerayasl angepasst
+	useJUnitPlatform()
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 jacocoTestReport {
+	dependsOn test
 	reports {
 		xml.required = true
 		html.required = true
+		// von zerayasl angepasst
+        csv.required = false
 	}
 }
