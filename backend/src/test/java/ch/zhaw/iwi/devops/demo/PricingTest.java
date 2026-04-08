@@ -35,11 +35,3 @@ public class PricingTest {
         assertEquals(5.0, calculator.calculateFee(121));
     }
 }
-
-
-
-//     @Test
-//     void capsFeeAtDailyMaximum() {
-//         Pricing calculator = new Pricing();
-//         assertEquals(18.0, calculator.calculateFee(900));
-//     }
