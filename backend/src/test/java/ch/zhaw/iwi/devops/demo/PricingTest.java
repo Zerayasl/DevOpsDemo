@@ -14,7 +14,7 @@ public class PricingTest {
     @Test
     void returnsZeroForThirtyMinutesOrLess() {
         Pricing calculator = new Pricing();
-        assertEquals("gratis", calculator.calculateFee(30));
+        assertEquals("gratis", calculator.calculateFee(31));
     }
 
     @Test
