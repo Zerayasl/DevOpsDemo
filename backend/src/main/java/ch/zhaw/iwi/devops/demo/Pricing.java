@@ -19,7 +19,7 @@ public class Pricing {
         }
 
         if (minutes <= FREE_MINUTES) {
-            return "gratis";
+            return FREE_PRICE == 0.0 ? "gratis" : FREE_PRICE + " CHF";
         }
         if (minutes <= FIRST_TIER_MAX) {
             return "2.0 CHF";
