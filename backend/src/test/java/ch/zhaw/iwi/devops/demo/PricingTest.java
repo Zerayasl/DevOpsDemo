@@ -14,7 +14,7 @@ public class PricingTest {
     @Test
     void returnsZeroForThirtyMinutesOrLess() {
         Pricing calculator = new Pricing();
-        assertEquals(0.0, calculator.calculateFee(30));
+        assertEquals("gratis", calculator.calculateFee(30));
     }
 
     @Test
@@ -26,12 +26,12 @@ public class PricingTest {
      @Test
     void chargesTwoFrancsForStartedHourAfterFreePeriod() {
         Pricing calculator = new Pricing();
-        assertEquals(2.0, calculator.calculateFee(31));
+        assertEquals("2.0 CHF", calculator.calculateFee(31));
     }
 
     @Test
     void chargesAdditionalStartedHoursAfterTwoHours() {
         Pricing calculator = new Pricing();
-        assertEquals(5.0, calculator.calculateFee(121));
+        assertEquals("5.0 CHF", calculator.calculateFee(121));
     }
 }

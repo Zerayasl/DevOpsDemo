@@ -13,19 +13,19 @@ public class Pricing {
     private static final double SECOND_TIER_PRICE = 5.0;
 
 
-    public double calculateFee(int minutes) {
+    public String calculateFee(int minutes) {
         if (minutes < 0) {
             throw new IllegalArgumentException("minutes must not be negative");
         }
 
         if (minutes <= FREE_MINUTES) {
-            return FREE_PRICE;
+            return "gratis";
         }
         if (minutes <= FIRST_TIER_MAX) {
-            return FIRST_TIER_PRICE;
+            return "2.0 CHF";
         }
 
-        return SECOND_TIER_PRICE;
+        return "5.0 CHF";
     }
 }
 
