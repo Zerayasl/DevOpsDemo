@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') { 
             steps {
                 sh 'echo checkout'
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-mosazhaw', url: 'https://github.com/devopszhaw/DevOpsDemo']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-zerayasl', url: 'https://github.com/Zerayasl/DevOpsDemo']])
             }
         }
         stage('Build') { 
@@ -27,13 +27,13 @@ pipeline {
                 }
                 withCredentials([string(credentialsId: 'Sonarqube-Backend', variable: 'TOKEN')]) {
                     dir('backend') {
-                        sh './gradlew sonar -Dsonar.projectKey=DevOpsDemo-Backend -Dsonar.projectName=\'DevOpsDemo-Backend\' -Dsonar.host.url=http://sonarqube:9000 -Dsonar.token=$TOKEN'    
+                        sh './gradlew sonar -Dsonar.projectKey=DevOpsDemo-Backend -Dsonar.projectName=\'DevOpsDemo-Backend\' -Dsonar.host.url=http://sonarqube:9000 -Dsonar.token=$sqp_03e14bbc66abc81ab475ae205c21a57486565fa5'    
                     }                    
                 }
                 withCredentials([string(credentialsId: 'Sonarqube-Frontend', variable: 'TOKEN')]) {
                     dir('frontend') {
                         nodejs('24.11.1') {
-                            sh 'npx sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.projectKey=DevOpsDemo-Frontend -Dsonar.projectName=\'DevOpsDemo-Frontend\' -Dsonar.token=$TOKEN'    
+                            sh 'npx sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.projectKey=DevOpsDemo-Frontend -Dsonar.projectName=\'DevOpsDemo-Frontend\' -Dsonar.token=$sqp_41c9b77db9e54a89799981c326970dfe24d6c4d2'    
                         }
                     }                    
                 }
