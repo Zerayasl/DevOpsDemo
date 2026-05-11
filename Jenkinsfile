@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'alpine/git'
+        }
+    }
     environment {
         JAVA_HOME = "/opt/jdks/jdk-25"
     }
