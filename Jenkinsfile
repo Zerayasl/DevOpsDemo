@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+        image 'node:20-bullseye'
+    }
+    }
     environment {
         JAVA_HOME = "/opt/jdks/jdk-25"
     }
