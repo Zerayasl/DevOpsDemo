@@ -12,7 +12,6 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN apt-get update && apt-get install -y git
 RUN cd frontend && npm install
 RUN mkdir -p backend/src/main/resources/static
 RUN mv frontend/* backend/src/main/resources/static
