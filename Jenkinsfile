@@ -43,7 +43,7 @@ pipeline {
             steps {
                 sh '''
                     export DOCKER_HOST=tcp://host.docker.internal:2375
-                    docker build -t zerayasl/devopsdemo .
+                    docker build -t zerayas/devopsdemo .
                 '''
             }
         }
