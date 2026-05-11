@@ -10,10 +10,26 @@
       "commands": [
         {
           "command": "open",
-          "target": "/",
+          "target": "http://host.docker.internal:3000",
           "value": "",
           "id": "eaac5dff-c52c-49b2-bd12-79b7c924b768",
           "isBreakpoint": true
+        },
+        {
+          "command": "waitForElementVisible",
+          "target": "css=.tile-green > .fa",
+          "value": "",
+          "id": "25bf0a2b-24c4-435b-9080-a41107fbb452",
+          "fallbackTargets": [
+            [
+              "css=.tile-green > .fa",
+              "css:finder"
+            ],
+            [
+              "xpath=(//path-framework[@id='app']/path-application/div/div/div/div[3]/div/span/span/span/path-button-group/span/div/span/span/path-button/a/div/i)[1]",
+              "xpath:idRelative"
+            ]
+          ]
         },
         {
           "command": "click",
@@ -32,7 +48,8 @@
               "xpath=(//path-framework[@id='app']/path-application/div/div/div/div[3]/div/span/span/span/path-button-group/span/div/span/span/path-button/a/div/div)[1]",
               "xpath:idRelative"
             ]
-          ]
+          ],
+          "isBreakpoint": true
         },
         {
           "command": "click",
