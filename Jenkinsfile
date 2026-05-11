@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'mosazhaw/devopsdemo'
-        }
-    }
+    agent any
     environment {
         JAVA_HOME = "/opt/jdks/jdk-25"
     }
