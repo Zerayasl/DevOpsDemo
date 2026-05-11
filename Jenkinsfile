@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'alpine/git'
+            image 'mosazhaw/devopsdemo'
         }
     }
     environment {
